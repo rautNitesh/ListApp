@@ -1,0 +1,23 @@
+{
+  "name": "listapp",
+  "version": "1.0.0",
+  "description": "'Simple user authentication and list item using MERN stack'",
+  "main": "server.js",
+  "scripts": {
+    "start": "node run server.js",
+    "server": "nodemon run server.js"
+  },
+  "author": "Nitesh Raut",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13",
+    "multer": "^1.4.2",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
