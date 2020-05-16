@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  background: linear-gradient(to left, rgb(10, 141, 173), rgb(27, 192, 184));
+}
+.App {
+  height: 100vh;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.container {
+  width: 60%;
+  margin: auto;
+
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.loginInputForm,
+.registerInputForm {
+  margin-top: 5em;
+  text-align: center;
+  border: 1px solid white;
+  padding: 2rem;
+  display: block;
+}
+.inputContainer {
+  text-align: left;
+  margin-bottom: 1em;
+}
+.textInput {
+  height: 3rem;
+  width: 25rem;
+  border-radius: 1em;
+  padding: 0.5em;
+  border: 1px solid rgb(223, 214, 214);
+  display: block;
+  outline: none;
+  margin-top: 1em;
+  font-size: 1.1em;
+}
+.textInput:focus {
+  box-shadow: 0 0 1pt 1pt rgb(0, 255, 128);
+}
+.btn {
+  height: 2.5rem;
+  width: 8rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.btn-submit {
+  background-color: transparent;
+  border: 0.17em solid white;
+  color: white;
+  border-radius: 1em;
+  font-size: small;
+}
+.btn-submit:hover {
+  color: black;
+  background-color: white;
+}
+.loginInputForm > .btn,
+.registerInputForm > .btn {
+  margin-left: 20em;
+}
+.Red {
+  box-shadow: 0 0 2pt 1pt rgb(255, 0, 0);
+}
+.invalid-feedback {
+  color: red;
+}
+
+.postDiv {
+  width: 40%;
+}
+.postList {
+  display: flex;
+  margin-top: 1em;
+  border: 1px solid white;
+  padding: 1em;
+  flex-wrap: wrap;
+}
+
+.postImage {
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+}
+.postText {
+  color: white;
+  font-size: small;
+}
