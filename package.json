@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node run server.js",
-    "server": "nodemon run server.js"
+    "server": "nodemon run server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Nitesh Raut",
   "license": "MIT",

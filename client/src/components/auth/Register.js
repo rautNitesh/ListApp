@@ -1,24 +1,46 @@
 import React, { Component } from "react";
 import TextInput from "../common/TextInput";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { registerUser } from "../../action/authAction";
 
 class Register extends Component {
   state = {
     username: "",
     password: "",
+    password2: "",
     email: "",
     errors: {},
   };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
+  }
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    console.log(this.state.username);
+  };
+  onSubmit = (e) => {
+    console.log("vayo");
+
+    e.preventDefault();
+    const newUser = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2,
+    };
+    this.props.registerUser(newUser, this.props.history);
   };
   render() {
     return (
       <div className="registerForm">
         <div className="container">
-          <form className="registerInputForm">
+          <form className="registerInputForm" onSubmit={this.onSubmit}>
             <TextInput
               name="username"
               type="text"
@@ -51,12 +73,21 @@ class Register extends Component {
               onChange={this.onChange}
               error={this.state.errors.password2}
             />
-            <input type="button" className="btn btn-submit" value="Submit" />
+            <button type="submit" className="btn btn-submit" value="submit">
+              Submit
+            </button>
           </form>
         </div>
       </div>
     );
   }
 }
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+};
 
-export default Register;
+const mapStateToProps = (state) => ({
+  errors: state.error,
+});
+export default connect(mapStateToProps, { registerUser })(Register);

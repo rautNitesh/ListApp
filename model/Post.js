@@ -10,6 +10,9 @@ const PostSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
+  userPhoto: {
+    type: String,
+  },
   photo: {
     type: String,
   },

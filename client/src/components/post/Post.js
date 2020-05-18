@@ -1,35 +1,53 @@
 import React, { Component } from "react";
 import PostInput from "./PostInput";
+import { connect } from "react-redux";
+import { getPost } from "../../action/postAction";
+import PropTypes from "prop-types";
 
 class Post extends Component {
-  state = [
-    {
-      text: "This is post text isto show.",
-      profilePicture:
-        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-    },
-    {
-      text: "This is post text.",
-      profilePicture:
-        "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-    },
-  ];
+  componentDidMount() {
+    this.props.getPost();
+  }
   render() {
-    const posts = this.state;
+    const { posts } = this.props.post;
+    console.log(posts);
+
+    const postView = posts.map((post, index) => (
+      <div className="postList">
+        <img
+          className="postImage"
+          src={`/public/uploads/${post.userPhoto}`}
+          alt="pp"
+        />
+        <h3 className="postText">{post.text}</h3>
+      </div>
+    ));
+
+    const { auth } = this.props;
     return (
       <div className="postDiv">
-        <PostInput />
-        <input type="button" className="btn btn-submit" value="Submit" />
-
-        {posts.map((post, index) => (
-          <div className="postList">
-            <img className="postImage" src={post.profilePicture} alt="pp" />
-            <h3 className="postText">{post.text}</h3>
-          </div>
-        ))}
+        {auth.isAuthenticated ? (
+          <>
+            <PostInput />{" "}
+            <input type="button" className="btn btn-submit" value="Submit" />
+          </>
+        ) : (
+          ""
+        )}
+        {postView}
       </div>
     );
   }
 }
-
-export default Post;
+Post.propTypes = {
+  getPost: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.error,
+  post: state.post,
+});
+export default connect(mapStateToProps, { getPost })(Post);

@@ -7,7 +7,7 @@ const postFormValidator = require("../validator/postFormValidator");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/profile");
+    cb(null, "public/uploads");
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + file.originalname);
@@ -25,10 +25,15 @@ router.post(
     if (!isValid) {
       return res.status(400).json(errors);
     }
+    let file;
+    if (req.file) {
+      file = req.file.filename;
+    }
     const newPost = new Post({
       text: req.body.text,
-      photo: req.file.path,
-      user: req.user.id,1
+      photo: file,
+      user: req.user.id,
+      userPhoto: req.user.profilePicture,
     });
     newPost
       .save()
@@ -37,6 +42,14 @@ router.post(
   }
 );
 
-router.get("/", (req, res) => res.send("Hola"));
+router.get("/", (req, res) => {
+  Post.find().then((post) => {
+    if (!post) {
+      res.status(404).json({ nopost: "No posts found" });
+    } else {
+      res.json(post);
+    }
+  });
+});
 
 module.exports = router;

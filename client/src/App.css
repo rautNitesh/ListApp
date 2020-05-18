@@ -72,7 +72,7 @@ body {
   margin-left: 20em;
 }
 .Red {
-  box-shadow: 0 0 2pt 1pt rgb(255, 0, 0);
+  box-shadow: 0 0 2pt 1pt rgb(255, 0, 76);
 }
 .invalid-feedback {
   color: red;
@@ -91,7 +91,6 @@ body {
 
 .postImage {
   width: 20%;
-  height: 20%;
   border-radius: 50%;
 }
 .postText {

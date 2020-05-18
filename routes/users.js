@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const jwt = require("jsonwebtoken");
-
+const path = require("path");
 const key = require("../config/keys").secretOrKey;
 const registerFormValidator = require("../validator/registerFormValidator");
 const loginFormValidator = require("../validator/loginFormValidator");
@@ -37,11 +37,15 @@ router.post("/register", upload.single("profilePicture"), (req, res) => {
         errors.email = "Email already exists";
         return res.status(400).json(errors);
       }
+      let file;
+      if (req.file) {
+        file = req.file.filename;
+      }
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        profilePicture: req.file.path,
+        profilePicture: file,
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -81,7 +85,8 @@ router.post("/login", (req, res) => {
           const payload = {
             id: user._id,
             username,
-            password,
+            email: user.email,
+            profilePicture: user.profilePicture,
           };
           jwt.sign(payload, key, { expiresIn: 3600 }, (err, token) => {
             res.json({
